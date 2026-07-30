@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", "Noto Sans Khmer", sans-serif;
+}
+
+.font-display {
+  font-family: "Rajdhani", "Noto Sans Khmer", sans-serif;
+}
+
+/* Technology / circuit-board style background: soft cyan+magenta glow
+   over a fine grid, evoking the Optimus artwork's HUD aesthetic. */
+.bg-tech {
+  background-color: #0B0F1A;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(61,224,200,0.16) 0%, rgba(11,15,26,0) 45%),
+    radial-gradient(ellipse at 85% 15%, rgba(224,69,154,0.12) 0%, rgba(11,15,26,0) 50%),
+    linear-gradient(rgba(61,224,200,0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61,224,200,0.09) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 42px 42px, 42px 42px;
+  background-position: 0 0, 0 0, center, center;
+}
+
+/* Faceted diamond corner-cut card shape, used for the signature element */
+.facet-card {
+  clip-path: polygon(0 12px, 12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+}
+
+::selection {
+  background: #3de0c8;
+  color: #0b0f1a;
+}
+
+:focus-visible {
+  outline: 2px solid #3de0c8;
+  outline-offset: 2px;
+}

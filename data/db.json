@@ -1,0 +1,207 @@
+{
+  "games": [
+    {
+      "id": "mlbb",
+      "name": "Mobile Legends: Bang Bang",
+      "shortName": "MLBB",
+      "color": "gem",
+      "needsServerId": true,
+      "packages": [
+        {
+          "id": "mlbb-56",
+          "label": "56 Diamonds",
+          "diamonds": 56,
+          "price": 0.99
+        },
+        {
+          "id": "mlbb-278",
+          "label": "278 Diamonds",
+          "diamonds": 278,
+          "price": 4.49
+        },
+        {
+          "id": "mlbb-571",
+          "label": "571 Diamonds",
+          "diamonds": 571,
+          "price": 8.99
+        },
+        {
+          "id": "mlbb-1163",
+          "label": "1163 Diamonds",
+          "diamonds": 1163,
+          "price": 17.49
+        },
+        {
+          "id": "mlbb-2398",
+          "label": "2398 Diamonds",
+          "diamonds": 2398,
+          "price": 34.99
+        },
+        {
+          "id": "mlbb-wp",
+          "label": "Weekly Pass",
+          "diamonds": 0,
+          "price": 1.29
+        }
+      ]
+    },
+    {
+      "id": "ff",
+      "name": "Free Fire",
+      "shortName": "FF",
+      "color": "magenta",
+      "needsServerId": false,
+      "packages": [
+        {
+          "id": "ff-100",
+          "label": "100 Diamonds",
+          "diamonds": 100,
+          "price": 0.99
+        },
+        {
+          "id": "ff-310",
+          "label": "310 Diamonds",
+          "diamonds": 310,
+          "price": 2.99
+        },
+        {
+          "id": "ff-520",
+          "label": "520 Diamonds",
+          "diamonds": 520,
+          "price": 4.99
+        },
+        {
+          "id": "ff-1060",
+          "label": "1060 Diamonds",
+          "diamonds": 1060,
+          "price": 9.99
+        },
+        {
+          "id": "ff-2180",
+          "label": "2180 Diamonds",
+          "diamonds": 2180,
+          "price": 19.99
+        },
+        {
+          "id": "ff-membership",
+          "label": "Weekly Membership",
+          "diamonds": 0,
+          "price": 1.49
+        }
+      ]
+    },
+    {
+      "id": "pubg",
+      "name": "PUBG Mobile",
+      "shortName": "PUBG",
+      "color": "gold",
+      "needsServerId": false,
+      "packages": [
+        {
+          "id": "pubg-60",
+          "label": "60 UC",
+          "diamonds": 60,
+          "price": 0.99
+        },
+        {
+          "id": "pubg-325",
+          "label": "325 UC",
+          "diamonds": 325,
+          "price": 4.99
+        },
+        {
+          "id": "pubg-660",
+          "label": "660 UC",
+          "diamonds": 660,
+          "price": 9.99
+        },
+        {
+          "id": "pubg-1800",
+          "label": "1800 UC",
+          "diamonds": 1800,
+          "price": 24.99
+        },
+        {
+          "id": "pubg-3850",
+          "label": "3850 UC",
+          "diamonds": 3850,
+          "price": 49.99
+        },
+        {
+          "id": "pubg-royale-pass",
+          "label": "Royale Pass",
+          "diamonds": 0,
+          "price": 9.99
+        }
+      ]
+    },
+    {
+      "id": "hok",
+      "name": "Honor of Kings",
+      "shortName": "HOK",
+      "color": "violet",
+      "needsServerId": false,
+      "packages": [
+        {
+          "id": "hok-60",
+          "label": "60 Tokens",
+          "diamonds": 60,
+          "price": 0.99
+        },
+        {
+          "id": "hok-300",
+          "label": "300 Tokens",
+          "diamonds": 300,
+          "price": 4.99
+        },
+        {
+          "id": "hok-620",
+          "label": "620 Tokens",
+          "diamonds": 620,
+          "price": 9.99
+        },
+        {
+          "id": "hok-1280",
+          "label": "1280 Tokens",
+          "diamonds": 1280,
+          "price": 19.99
+        },
+        {
+          "id": "hok-3280",
+          "label": "3280 Tokens",
+          "diamonds": 3280,
+          "price": 49.99
+        },
+        {
+          "id": "hok-growth-pass",
+          "label": "Growth Pass",
+          "diamonds": 0,
+          "price": 1.99
+        }
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "id": "BNB9NTmaWM",
+      "gameId": "mlbb",
+      "gameName": "Mobile Legends: Bang Bang",
+      "packageId": "mlbb-56",
+      "packageLabel": "56 Diamonds",
+      "diamonds": 56,
+      "priceUsd": 0.99,
+      "gameUserId": "1",
+      "gameServerId": "1",
+      "contact": "1",
+      "status": "fulfilled",
+      "supplierRef": null,
+      "createdAt": 1785424113002,
+      "updatedAt": 1785424169845
+    }
+  ],
+  "settings": {
+    "shopName": "GemDrop",
+    "supportTelegram": "https://t.me/your_shop",
+    "supportPhone": "0"
+  }
+}
