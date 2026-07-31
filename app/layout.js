@@ -1,8 +1,14 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "OPTIMUS — MLBB & Free Fire Diamonds",
-  description: "ទិញ Diamond MLBB និង Free Fire ដោយសុវត្ថិភាព ចែកចាយលឿន",
+  title: "OPTIMUS PRIME 💎🪙",
+  description:
+    "ទិញតាមរយៈ OPTIMUS Web ទទួលបានការទុកចិត្ត មានសុវត្តិភាព និងលឿនរហ័សទាន់ចិត្ត មានគ្រប់ប្រភេទដូចជា MLBB FF PUBG HOK …",
+  openGraph: {
+    title: "OPTIMUS PRIME",
+    description:
+      "ទិញតាមរយៈ OPTIMUS Web ទទួលបានការទុកចិត្ត មានសុវត្តិភាព និងលឿនរហ័សទាន់ចិត្ត មានគ្រប់ប្រភេទដូចជា MLBB FF PUBG HOK …",
+  },
 };
 
 export default function RootLayout({ children }) {
