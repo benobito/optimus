@@ -1,15 +1,16 @@
-# GemDrop — MLBB & Free Fire Diamond Top-up Shop
+# OPTIMUS — Game Diamond/UC Top-up Shop
 
-A full-stack Next.js website for selling Mobile Legends: Bang Bang and Free
-Fire diamonds: public storefront, order tracking, and an admin dashboard for
-managing orders and pricing.
+A full-stack Next.js website for selling in-game currency (Mobile Legends
+diamonds, Free Fire diamonds, PUBG Mobile UC, Honor of Kings tokens): public
+storefront, order tracking, and an admin dashboard for managing orders and
+pricing.
 
 ## What's included
 
-- **Storefront** (`/`) — pick a game, pick a diamond package, checkout form
+- **Storefront** (`/`) — pick a game, pick a package, checkout form
 - **Order tracking** (`/order/[id]`) — customers check their order status
-- **Admin dashboard** (`/admin`) — view/update orders, mark paid/fulfilled
-- **Package manager** (`/admin/products`) — add/edit/remove packages & prices
+- **Admin dashboard** (`/staff-7q2f9k`) — view/update orders, mark paid/fulfilled
+- **Package manager** (`/staff-7q2f9k/products`) — add/edit/remove packages & prices
 - **API** — `app/api/**` routes for orders, products, and admin auth
 - Data is stored in `data/db.json` (via `lowdb`) — no external database needed
   to get started.
@@ -22,14 +23,33 @@ cp .env.example .env.local
 ```
 
 Edit `.env.local`:
-- `ADMIN_PASSWORD` — the password for `/admin/login`. Change it from the default.
+- `ADMIN_PASSWORD` — the password for the admin dashboard. Change it from the default.
 - `SESSION_SECRET` — any long random string (`openssl rand -hex 32`).
 
 Run it:
 ```bash
 npm run dev
 ```
-Visit http://localhost:3000. Admin is at http://localhost:3000/admin/login.
+Visit http://localhost:3000.
+
+### Admin access
+
+The admin dashboard is **not linked anywhere on the public site**, and it
+does not live at the obvious `/admin` path — it's at:
+
+```
+http://localhost:3000/staff-7q2f9k/login
+```
+
+**Bookmark that URL** — there's no link to it in the storefront on purpose,
+so casual visitors can't stumble onto the login screen or brute-force-guess
+`/admin`. This is on top of, not instead of, the password login — always
+also set a strong, unique `ADMIN_PASSWORD`.
+
+Want to change the secret slug to something of your own choosing? Rename
+the `app/staff-7q2f9k` and `app/api/staff-7q2f9k` folders, and update the
+matching path in `middleware.js` (`ADMIN_BASE`) to match. Pick something
+short but not guessable — avoid real words like `/admin`, `/backend`, `/cms`.
 
 ## 2. Making it take REAL payments
 

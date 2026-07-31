@@ -11,6 +11,7 @@ const ACCENTS = {
 
 export default function StorefrontPage() {
   const [games, setGames] = useState([]);
+  const [settings, setSettings] = useState(null);
   const [step, setStep] = useState("pick-game"); // pick-game -> pick-package -> checkout -> done
   const [selectedGame, setSelectedGame] = useState(null);
   const [selectedPkg, setSelectedPkg] = useState(null);
@@ -19,11 +20,15 @@ export default function StorefrontPage() {
   const [result, setResult] = useState(null);
   const [orderStatus, setOrderStatus] = useState(null);
   const [error, setError] = useState("");
+  const [nickCheck, setNickCheck] = useState({ loading: false, nickname: null, note: null });
 
   useEffect(() => {
     fetch("/api/products")
       .then((r) => r.json())
       .then((data) => setGames(data.games || []));
+    fetch("/api/settings")
+      .then((r) => r.json())
+      .then((data) => setSettings(data.settings || null));
   }, []);
 
   // Poll the order while it's still waiting on payment, so the screen
@@ -50,7 +55,39 @@ export default function StorefrontPage() {
 
   function pickPackage(pkg) {
     setSelectedPkg(pkg);
+    setNickCheck({ loading: false, nickname: null, note: null });
     setStep("checkout");
+  }
+
+  async function checkId() {
+    if (!form.gameUserId) {
+      setNickCheck({ loading: false, nickname: null, note: "សូមបញ្ចូល ID សិន" });
+      return;
+    }
+    if (selectedGame.needsServerId && !form.gameServerId) {
+      setNickCheck({ loading: false, nickname: null, note: "សូមបញ្ចូល Server ID ផងដែរ" });
+      return;
+    }
+    setNickCheck({ loading: true, nickname: null, note: null });
+    try {
+      const res = await fetch("/api/check-nickname", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          gameId: selectedGame.id,
+          gameUserId: form.gameUserId,
+          gameServerId: form.gameServerId,
+        }),
+      });
+      const data = await res.json();
+      if (data.verified) {
+        setNickCheck({ loading: false, nickname: data.nickname, note: null });
+      } else {
+        setNickCheck({ loading: false, nickname: null, note: data.note || data.error || "មិនអាចត្រួតពិនិត្យបានទេ" });
+      }
+    } catch {
+      setNickCheck({ loading: false, nickname: null, note: "មានបញ្ហាបណ្ដាញ សូមព្យាយាមម្តងទៀត" });
+    }
   }
 
   async function submitOrder(e) {
@@ -96,6 +133,7 @@ export default function StorefrontPage() {
     setResult(null);
     setOrderStatus(null);
     setError("");
+    setNickCheck({ loading: false, nickname: null, note: null });
     setStep("pick-game");
   }
 
@@ -111,19 +149,16 @@ export default function StorefrontPage() {
           />
           <span className="font-display text-xl font-bold tracking-wide">OPTIMUS</span>
         </div>
-        <a href="/admin/login" className="text-sm text-ash hover:text-white transition">
-          Admin
-        </a>
       </header>
 
       {/* Hero */}
       <section className="px-6 md:px-12 pt-14 pb-10 text-center">
         <p className="font-display tracking-[0.3em] text-gold text-xs mb-3">TOP UP · INSTANT · SECURE</p>
-        <h1 className="font-display text-4xl md:text-6xl font-bold leading-tight">
-          បញ្ចូល Diamond ក្នុងរយៈ<br className="hidden md:block" /> ប៉ុន្មាននាទី
+        <h1 className="font-display text-4xl md:text-6xl font-bold leading-tight text-gradient-tech">
+          សូមស្វាគមន៍មកកាន់ OPTIMUS
         </h1>
         <p className="text-ash mt-4 max-w-xl mx-auto">
-          ទិញ Diamond សម្រាប់ Mobile Legends: Bang Bang និង Free Fire ដោយផ្ទាល់ គ្មានប្រាក់លាក់កំបាំង
+          លោកអ្នកអាចបញ្ជាទិញលឿនរហ័សទាន់ចិត្ត មានសម្រាប់ Game ជាច្រើនប្រភេទ
           បង់ថ្លៃតាម ABA / Wing / Bakong KHQR។
         </p>
       </section>
@@ -207,23 +242,47 @@ export default function StorefrontPage() {
             <form onSubmit={submitOrder} className="space-y-4">
               <div>
                 <label className="block text-sm text-ash mb-1">
-                  {selectedGame.needsServerId ? "User ID (MLBB)" : "Player ID (Free Fire)"}
+                  {selectedGame.idLabel || "Player ID"}
                 </label>
-                <input
-                  value={form.gameUserId}
-                  onChange={(e) => setForm({ ...form, gameUserId: e.target.value })}
-                  className="w-full bg-panel border border-line focus:border-gem rounded px-4 py-3 outline-none"
-                  placeholder="12345678"
-                />
+                <div className="flex gap-2">
+                  <input
+                    value={form.gameUserId}
+                    onChange={(e) => {
+                      setForm({ ...form, gameUserId: e.target.value });
+                      setNickCheck({ loading: false, nickname: null, note: null });
+                    }}
+                    className="flex-1 bg-panel border border-line focus:border-gem rounded px-4 py-3 outline-none"
+                    placeholder={selectedGame.idPlaceholder || "12345678"}
+                  />
+                  <button
+                    type="button"
+                    onClick={checkId}
+                    disabled={nickCheck.loading}
+                    className="shrink-0 facet-card border border-gem text-gem px-4 font-display font-bold text-sm hover:bg-gem hover:text-ink transition disabled:opacity-50"
+                  >
+                    {nickCheck.loading ? "..." : "ត្រួតពិនិត្យ"}
+                  </button>
+                </div>
+                {nickCheck.nickname && (
+                  <p className="text-gem text-sm mt-2 flex items-center gap-1">
+                    ✅ ឈ្មោះក្នុងហ្គេម៖ <span className="font-bold">{nickCheck.nickname}</span>
+                  </p>
+                )}
+                {nickCheck.note && (
+                  <p className="text-ash text-sm mt-2">{nickCheck.note}</p>
+                )}
               </div>
               {selectedGame.needsServerId && (
                 <div>
                   <label className="block text-sm text-ash mb-1">Server ID</label>
                   <input
                     value={form.gameServerId}
-                    onChange={(e) => setForm({ ...form, gameServerId: e.target.value })}
+                    onChange={(e) => {
+                      setForm({ ...form, gameServerId: e.target.value });
+                      setNickCheck({ loading: false, nickname: null, note: null });
+                    }}
                     className="w-full bg-panel border border-line focus:border-gem rounded px-4 py-3 outline-none"
-                    placeholder="1234"
+                    placeholder={selectedGame.serverPlaceholder || "1234"}
                   />
                 </div>
               )}
@@ -326,6 +385,67 @@ export default function StorefrontPage() {
           </div>
         )}
       </div>
+
+      {/* Footer: contact links */}
+      <footer className="border-t border-line px-6 md:px-12 py-10 mt-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-ash text-sm mb-5">មានសំណួរ ឬត្រូវការជំនួយ? ទាក់ទងមកយើងខ្ញុំ</p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            {settings?.supportTelegram && (
+              <a
+                href={settings.supportTelegram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="facet-card bg-panel border border-line hover:border-gem hover:text-gem transition flex items-center gap-2 px-5 py-3 text-sm font-medium"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden="true">
+                  <path d="M21.94 4.6 18.6 20.36c-.25 1.1-.9 1.37-1.83.86l-5.06-3.73-2.44 2.35c-.27.27-.5.5-1.02.5l.36-5.16 9.4-8.5c.41-.36-.09-.56-.63-.2L6.7 12.9l-5.03-1.58c-1.1-.34-1.11-1.1.23-1.62L20.6 3.16c.9-.33 1.7.2 1.34 1.44Z" />
+                </svg>
+                Telegram
+              </a>
+            )}
+            {settings?.supportFacebook && (
+              <a
+                href={settings.supportFacebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="facet-card bg-panel border border-line hover:border-violet hover:text-violet transition flex items-center gap-2 px-5 py-3 text-sm font-medium"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden="true">
+                  <path d="M13.5 21v-7.5H16l.5-3H13.5V8.5c0-.87.24-1.46 1.5-1.46H16.6V4.35C16.31 4.31 15.32 4.22 14.17 4.22c-2.4 0-4.04 1.46-4.04 4.15v2.13H7.6v3H10.13V21h3.37Z" />
+                </svg>
+                Facebook
+              </a>
+            )}
+            {settings?.supportEmail && (
+              <a
+                href={`mailto:${settings.supportEmail}`}
+                className="facet-card bg-panel border border-line hover:border-gold hover:text-gold transition flex items-center gap-2 px-5 py-3 text-sm font-medium"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {settings.supportEmail}
+              </a>
+            )}
+            {settings?.supportPhone && settings.supportPhone !== "0" && (
+              <a
+                href={`tel:${settings.supportPhone}`}
+                className="facet-card bg-panel border border-line hover:border-magenta hover:text-magenta transition flex items-center gap-2 px-5 py-3 text-sm font-medium"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8" aria-hidden="true">
+                  <path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8Z" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {settings.supportPhone}
+              </a>
+            )}
+          </div>
+          <p className="text-ash/60 text-xs mt-8">
+            © {new Date().getFullYear()} {settings?.shopName || "OPTIMUS"}. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }

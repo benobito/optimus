@@ -43,7 +43,10 @@
           "diamonds": 0,
           "price": 1.29
         }
-      ]
+      ],
+      "idLabel": "User ID (MLBB)",
+      "idPlaceholder": "123456789",
+      "serverPlaceholder": "2001"
     },
     {
       "id": "ff",
@@ -88,7 +91,9 @@
           "diamonds": 0,
           "price": 1.49
         }
-      ]
+      ],
+      "idLabel": "Player ID (Free Fire)",
+      "idPlaceholder": "123456789"
     },
     {
       "id": "pubg",
@@ -133,7 +138,9 @@
           "diamonds": 0,
           "price": 9.99
         }
-      ]
+      ],
+      "idLabel": "Character ID (PUBG Mobile)",
+      "idPlaceholder": "512xxxxxxx"
     },
     {
       "id": "hok",
@@ -178,30 +185,17 @@
           "diamonds": 0,
           "price": 1.99
         }
-      ]
+      ],
+      "idLabel": "Game ID (Honor of Kings)",
+      "idPlaceholder": "123456789"
     }
   ],
-  "orders": [
-    {
-      "id": "BNB9NTmaWM",
-      "gameId": "mlbb",
-      "gameName": "Mobile Legends: Bang Bang",
-      "packageId": "mlbb-56",
-      "packageLabel": "56 Diamonds",
-      "diamonds": 56,
-      "priceUsd": 0.99,
-      "gameUserId": "1",
-      "gameServerId": "1",
-      "contact": "1",
-      "status": "fulfilled",
-      "supplierRef": null,
-      "createdAt": 1785424113002,
-      "updatedAt": 1785424169845
-    }
-  ],
+  "orders": [],
   "settings": {
-    "shopName": "GemDrop",
+    "shopName": "OPTIMUS",
     "supportTelegram": "https://t.me/your_shop",
-    "supportPhone": "0"
+    "supportPhone": "0",
+    "supportFacebook": "https://facebook.com/your_shop",
+    "supportEmail": "support@yourshop.com"
   }
 }

@@ -14,17 +14,34 @@ body {
   font-family: "Rajdhani", "Noto Sans Khmer", sans-serif;
 }
 
-/* Technology / circuit-board style background: soft cyan+magenta glow
-   over a fine grid, evoking the Optimus artwork's HUD aesthetic. */
+/* Technology / circuit-board style background: multiple color glows
+   (cyan, magenta, gold, violet) drifting slowly over a fine grid, for a
+   lively, colorful HUD aesthetic instead of a flat dark background. */
 .bg-tech {
   background-color: #0B0F1A;
   background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(61,224,200,0.16) 0%, rgba(11,15,26,0) 45%),
-    radial-gradient(ellipse at 85% 15%, rgba(224,69,154,0.12) 0%, rgba(11,15,26,0) 50%),
-    linear-gradient(rgba(61,224,200,0.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(61,224,200,0.09) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 42px 42px, 42px 42px;
-  background-position: 0 0, 0 0, center, center;
+    radial-gradient(ellipse 60% 50% at 12% 8%, rgba(61,224,200,0.30) 0%, rgba(11,15,26,0) 55%),
+    radial-gradient(ellipse 55% 45% at 88% 12%, rgba(224,69,154,0.24) 0%, rgba(11,15,26,0) 55%),
+    radial-gradient(ellipse 50% 45% at 90% 85%, rgba(139,124,246,0.22) 0%, rgba(11,15,26,0) 55%),
+    radial-gradient(ellipse 55% 45% at 8% 90%, rgba(242,184,75,0.18) 0%, rgba(11,15,26,0) 55%),
+    radial-gradient(ellipse 70% 60% at 50% 45%, rgba(61,224,200,0.08) 0%, rgba(11,15,26,0) 60%),
+    linear-gradient(rgba(61,224,200,0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61,224,200,0.10) 1px, transparent 1px);
+  background-size: 140% 140%, 140% 140%, 140% 140%, 140% 140%, 140% 140%, 42px 42px, 42px 42px;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0, center, center;
+  animation: tech-bg-drift 24s ease-in-out infinite;
+}
+
+@keyframes tech-bg-drift {
+  0%   { background-position: 0% 0%,   100% 0%,  100% 100%, 0% 100%, 50% 50%, center, center; }
+  50%  { background-position: 10% 8%,  92% 10%,   90% 90%,  8% 92%, 55% 45%, center, center; }
+  100% { background-position: 0% 0%,   100% 0%,  100% 100%, 0% 100%, 50% 50%, center, center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-tech {
+    animation: none;
+  }
 }
 
 /* Faceted diamond corner-cut card shape, used for the signature element */
@@ -40,4 +57,37 @@ body {
 :focus-visible {
   outline: 2px solid #3de0c8;
   outline-offset: 2px;
+}
+
+/* Bright, multi-color "technology" gradient text — used for the hero
+   headline. Cycles cyan -> gold -> magenta -> violet with a soft glow. */
+.text-gradient-tech {
+  background: linear-gradient(
+    90deg,
+    #3de0c8 0%,
+    #6fe8ff 22%,
+    #f2b84b 45%,
+    #e0459a 68%,
+    #8b7cf6 88%,
+    #3de0c8 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(61, 224, 200, 0.35)) drop-shadow(0 0 28px rgba(224, 69, 154, 0.2));
+  animation: tech-gradient-shift 6s ease-in-out infinite;
+}
+
+@keyframes tech-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-gradient-tech {
+    animation: none;
+  }
 }
