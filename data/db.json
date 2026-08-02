@@ -9,39 +9,27 @@
       "packages": [
         {
           "id": "mlbb-56",
-          "label": "56 Diamonds",
-          "diamonds": 56,
+          "label": "55 Diamonds",
+          "diamonds": 55,
           "price": 0.99
         },
         {
-          "id": "mlbb-278",
-          "label": "278 Diamonds",
-          "diamonds": 278,
-          "price": 4.49
+          "id": "mlbb-257",
+          "label": "257 Diamonds",
+          "diamonds": 257,
+          "price": 3.70
         },
         {
-          "id": "mlbb-571",
-          "label": "571 Diamonds",
-          "diamonds": 571,
-          "price": 8.99
-        },
-        {
-          "id": "mlbb-1163",
-          "label": "1163 Diamonds",
-          "diamonds": 1163,
-          "price": 17.49
-        },
-        {
-          "id": "mlbb-2398",
-          "label": "2398 Diamonds",
-          "diamonds": 2398,
-          "price": 34.99
+          "id": "mlbb-706",
+          "label": "706 Diamonds",
+          "diamonds": 706,
+          "price": 9.99
         },
         {
           "id": "mlbb-wp",
           "label": "Weekly Pass",
           "diamonds": 0,
-          "price": 1.29
+          "price": 1.65
         }
       ],
       "idLabel": "User ID (MLBB)",
