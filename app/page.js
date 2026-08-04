@@ -9,6 +9,41 @@ const ACCENTS = {
   violet: { text: "text-violet", bg: "bg-violet", border: "border-violet", ring: "ring-violet" },
 };
 
+// Original kawaii-style decorations (bow, kitty face, paws, hearts, stars) —
+// not the licensed Hello Kitty / Pink Panther characters, just a similar
+// cute-pink spirit, rendered as simple emoji so there's nothing to load.
+const STICKERS = [
+  { emoji: "🎀", top: "8%", left: "4%", delay: "0s", duration: "6.5s", size: "2.2rem" },
+  { emoji: "🐱", top: "14%", left: "92%", delay: "0.8s", duration: "7s", size: "2.4rem" },
+  { emoji: "⭐", top: "38%", left: "2%", delay: "1.4s", duration: "5.5s", size: "1.6rem" },
+  { emoji: "💗", top: "60%", left: "94%", delay: "0.4s", duration: "6s", size: "1.8rem" },
+  { emoji: "🐾", top: "80%", left: "6%", delay: "2s", duration: "7.5s", size: "1.8rem" },
+  { emoji: "✨", top: "88%", left: "90%", delay: "1s", duration: "5s", size: "1.6rem" },
+  { emoji: "🌸", top: "50%", left: "1%", delay: "2.4s", duration: "6.5s", size: "1.8rem" },
+];
+
+function StickerField() {
+  return (
+    <div className="sticker-layer" aria-hidden="true">
+      {STICKERS.map((s, i) => (
+        <span
+          key={i}
+          className="sticker"
+          style={{
+            top: s.top,
+            left: s.left,
+            fontSize: s.size,
+            animationDelay: s.delay,
+            animationDuration: s.duration,
+          }}
+        >
+          {s.emoji}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export default function StorefrontPage() {
   const [games, setGames] = useState([]);
   const [settings, setSettings] = useState(null);
@@ -139,20 +174,35 @@ export default function StorefrontPage() {
 
   return (
     <main className="min-h-screen bg-tech">
+      <StickerField />
+
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-5 md:px-12 border-b border-line">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 relative">
           <img
             src="/images/optimus-logo.jpg"
             alt="OPTIMUS"
             className="h-10 w-10 facet-card object-cover border border-gem/40"
           />
-          <span className="font-display text-xl font-bold tracking-wide">OPTIMUS</span>
+          <span className="font-display text-xl font-bold tracking-wide text-gradient-tech">OPTIMUS</span>
+          {/*
+            Name mascot: drop your image at public/images/mascot-name.png
+            (transparent background works best). It sits just beside the
+            OPTIMUS wordmark. onError hides it automatically if the file
+            isn't there yet, so nothing breaks in the meantime.
+          */}
+          <img
+            src="/images/mascot-name.png"
+            alt=""
+            aria-hidden="true"
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+            className="h-12 w-auto -ml-1 select-none pointer-events-none drop-shadow-[0_4px_10px_rgba(224,69,154,0.35)]"
+          />
         </div>
       </header>
 
       {/* Hero */}
-      <section className="px-6 md:px-12 pt-14 pb-10 text-center">
+      <section className="relative px-6 md:px-12 pt-14 pb-10 text-center overflow-hidden">
         <p className="font-display tracking-[0.3em] text-gold text-xs mb-3">TOP UP · INSTANT · SECURE</p>
         <h1 className="font-display text-4xl md:text-6xl font-bold leading-tight text-gradient-tech">
           សូមស្វាគមន៍មកកាន់ OPTIMUS
@@ -161,6 +211,20 @@ export default function StorefrontPage() {
           លោកអ្នកអាចបញ្ជាទិញលឿនរហ័សទាន់ចិត្ត មានសម្រាប់ Game ជាច្រើនប្រភេទ
           បង់ថ្លៃតាម ABA / Wing / Bakong KHQR។
         </p>
+
+        {/*
+          Title mascot: drop your image at public/images/mascot-title.png.
+          Positioned "peeking" in from the corner of the hero section, like
+          it's leaning on the headline — sized to stay clear of the text on
+          mobile (hidden below md) and desktop (capped width).
+        */}
+        <img
+          src="/images/mascot-title.png"
+          alt=""
+          aria-hidden="true"
+          onError={(e) => { e.currentTarget.style.display = "none"; }}
+          className="hidden md:block absolute -right-6 bottom-0 w-40 lg:w-56 select-none pointer-events-none drop-shadow-[0_8px_20px_rgba(224,69,154,0.35)]"
+        />
       </section>
 
       <div className="px-6 md:px-12 pb-24 max-w-3xl mx-auto">
@@ -203,7 +267,7 @@ export default function StorefrontPage() {
         {/* Step: pick package */}
         {step === "pick-package" && selectedGame && (
           <div>
-            <button onClick={() => setStep("pick-game")} className="text-ash text-sm mb-5 hover:text-white">
+            <button onClick={() => setStep("pick-game")} className="text-ash text-sm mb-5 hover:text-gem">
               ← ត្រឡប់ក្រោយ
             </button>
             <h2 className="font-display text-2xl font-bold mb-5">{selectedGame.name}</h2>
@@ -228,7 +292,7 @@ export default function StorefrontPage() {
         {/* Step: checkout form */}
         {step === "checkout" && selectedGame && selectedPkg && (
           <div>
-            <button onClick={() => setStep("pick-package")} className="text-ash text-sm mb-5 hover:text-white">
+            <button onClick={() => setStep("pick-package")} className="text-ash text-sm mb-5 hover:text-gem">
               ← ត្រឡប់ក្រោយ
             </button>
             <div className="facet-card bg-panel2 border border-line p-4 mb-6 flex items-center justify-between">

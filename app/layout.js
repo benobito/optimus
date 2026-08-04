@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className="bg-ink text-white font-body antialiased">{children}</body>
+      <body className="bg-ink text-inktext font-body antialiased">{children}</body>
     </html>
   );
 }
