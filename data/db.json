@@ -8,16 +8,34 @@
       "needsServerId": true,
       "packages": [
         {
-          "id": "mlbb-56",
+          "id": "mlbb-55",
           "label": "55 Diamonds",
           "diamonds": 55,
           "price": 0.99
+        },
+        {
+          "id": "mlbb-165",
+          "label": "165 Diamonds",
+          "diamonds": 165,
+          "price": 2.50
+        },
+        {
+          "id": "mlbb-275",
+          "label": "275 Diamonds",
+          "diamonds": 275,
+          "price": 4.00
         },
         {
           "id": "mlbb-257",
           "label": "257 Diamonds",
           "diamonds": 257,
           "price": 3.70
+        },
+        {
+          "id": "mlbb-565",
+          "label": "565 Diamonds",
+          "diamonds": 55,
+          "price": 7.80
         },
         {
           "id": "mlbb-706",
@@ -30,6 +48,24 @@
           "label": "Weekly Pass",
           "diamonds": 0,
           "price": 1.65
+        },
+        {
+          "id": "mlbb-web",
+          "label": "Weekly Elite Bundle",
+          "diamonds": 0,
+          "price": 1.00
+        },
+        {
+          "id": "mlbb-meb",
+          "label": "Monthly Elite Bundle",
+          "diamonds": 0,
+          "price": 4.30
+        },
+        {
+          "id": "mlbb-tp",
+          "label": "Twilight Pass",
+          "diamonds": 0,
+          "price": 8.50
         }
       ],
       "idLabel": "User ID (MLBB)",
